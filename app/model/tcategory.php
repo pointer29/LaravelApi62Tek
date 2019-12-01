@@ -30,4 +30,16 @@ class tcategory extends Model
             }
         }
     }
+
+    public static function get_categories_by_id($businesses_id){
+        $categories=tcategory::where('businesses_id',$businesses_id)
+        ->get();
+        $string='';
+        if(!$categories->isEmpty()){
+            foreach($categories as $data){
+                $string=$string.$data->category_tittle.', ';
+            }
+        }
+        return $string;
+    }
 }

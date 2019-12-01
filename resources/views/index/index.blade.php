@@ -75,6 +75,7 @@ ul.pagination li a:hover:not(.active) {background-color: #ddd;}
 	      <th>Color</th>
 	      <th>Description</th>
 	      <th>Image</th>
+	      <th>Category</th>
 	      <th>businesses_is_closed</th>
 	      <th>businesses_url</th>
 	      <th>businesses_review_count</th>
@@ -106,6 +107,7 @@ ul.pagination li a:hover:not(.active) {background-color: #ddd;}
 	    	<td>{{$data->businesses_alias}}</td>
 	    	<td>{{$data->businesses_name}}</td>
 	    	<td><img src="{{ $data->businesses_image_url }}" width="200"/></td>
+	    	<td>{{ App\model\tcategory::get_categories_by_id($data->businesses_id) }}</td>
 	    	<td>{{ $data->businesses_is_closed===0? 'Closed' : 'Open' }}</td>
 	    	<td><a href="{{$data->businesses_url}}">Here!!</a></td>
 	    	<td>{{ $data->businesses_review_count}}</td>
