@@ -16,24 +16,23 @@ class business extends Controller
     	$path='v3/businesses/search?location=new%20york&term=pasta&limit=50&offset=';
     	$totalrecords=100;
     	$offsets=$this->create_offset($totalrecords);
-    	if(!empty($offsets)){
-    		//get api by offset
-    		DB::beginTransaction();
-    		foreach ($offsets as $offset) {
-	        	$response=	$Curl->get_curl($path,$offset);  
-		        $decode_response = json_decode($response);
-		        $this->insert_business($decode_response->businesses);
-    		}
-		 	DB::commit();
-	        echo 'done';
-            return redirect()->route('index.get_index');
-    	}
-        try {
-        	
+    	try {
+            if(!empty($offsets)){
+        		//get api by offset
+        		DB::beginTransaction();
+        		foreach ($offsets as $offset) {
+    	        	$response=	$Curl->get_curl($path,$offset);  
+    		        $decode_response = json_decode($response);
+    		        $this->insert_business($decode_response->businesses);
+        		}
+    		 	DB::commit();
+    	        echo 'done';
+                return redirect()->route('index.get_index');
+        	}        	
         } catch (\Exception $e) {
         	DB::rollback();
-        	dd($e);
-        	return 'failed uncoment $e !!';
+        	// dd($e);
+        	return 'pastikan koneksi internet anda bagus, silahkan uncomment $e untuk track error.';
         }
     }
 
